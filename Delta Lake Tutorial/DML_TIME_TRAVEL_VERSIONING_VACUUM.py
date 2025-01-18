@@ -56,4 +56,46 @@
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC ## Time Travel and Versioning
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC DESCRIBE History delta_catalog.raw.external_table_orders_dml_dv;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from delta_catalog.raw.external_table_orders_dml_dv VERSION AS OF 2
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC RESTORE delta_catalog.raw.external_table_orders_dml_dv TO VERSION AS OF 2;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from delta_catalog.raw.external_table_orders_dml_dv
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## VACUUM
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC SET spark.databricks.delta.retentionDurationCheck.enabled = false;
+# MAGIC
+# MAGIC VACUUM delta_catalog.raw.external_table_orders_dml RETAIN 0 HOURS;
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from delta_catalog.raw.external_table_orders_dml;
+
+# COMMAND ----------
+
 
